@@ -2,6 +2,9 @@ using Ui;
 using Game;
 using Profile;
 using UnityEngine;
+using Services.Ads.UnityAds;
+using Services.Analytics;
+using Services.IAP;
 
 internal class MainController : BaseController
 {
@@ -14,11 +17,18 @@ internal class MainController : BaseController
 
     private BaseController _activeController;
 
+    private UnityAdsService _adsService;
+    private AnalyticsManager _analyticsManager;
+    private IAPService _iAPService;
 
-    public MainController(Transform placeForUi, ProfilePlayer profilePlayer)
+    public MainController(Transform placeForUi, ProfilePlayer profilePlayer, UnityAdsService unityAdsService, AnalyticsManager analyticsManager, IAPService iAPService)
     {
         _placeForUi = placeForUi;
         _profilePlayer = profilePlayer;
+
+        _adsService = unityAdsService;
+        _analyticsManager = analyticsManager;
+        _iAPService = iAPService;
 
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
         OnChangeGameState(_profilePlayer.CurrentState.Value);
@@ -38,12 +48,12 @@ internal class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer);
+                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _iAPService);
                 _activeController?.Dispose();
                 _activeController = _mainMenuController;
                 break;
             case GameState.Game:
-                _gameController = new GameController(_profilePlayer);
+                _gameController = new GameController(_profilePlayer, _analyticsManager);
                 _activeController?.Dispose();
                 _activeController = _gameController;
                 break;
@@ -51,6 +61,9 @@ internal class MainController : BaseController
                 _settingsMenuController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 _activeController?.Dispose();
                 _activeController = _settingsMenuController;
+                break;
+            case GameState.ShowRewardedAdd:
+                _adsService.RewardedPlayer.Play();
                 break;
             default:
                 _mainMenuController?.Dispose();

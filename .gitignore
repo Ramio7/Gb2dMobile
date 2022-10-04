@@ -578,3 +578,7 @@ FodyWeavers.xsd
 *AndroidLogcatSettings.asset
 *EditorUserSettings.asset
 ProjectSettings/RiderScriptEditorPersistedState.asset
+
+*.zip
+
+Gb2DMobile_lesson2_hw_BackUpThisFolder_ButDontShipItWithYourGame/
