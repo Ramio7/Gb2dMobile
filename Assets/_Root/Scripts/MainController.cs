@@ -11,10 +11,6 @@ internal class MainController : BaseController
     private readonly Transform _placeForUi;
     private readonly ProfilePlayer _profilePlayer;
 
-    private MainMenuController _mainMenuController;
-    private GameController _gameController;
-    private SettingsMenuController _settingsMenuController;
-
     private BaseController _activeController;
 
     private UnityAdsService _adsService;
@@ -36,8 +32,7 @@ internal class MainController : BaseController
 
     protected override void OnDispose()
     {
-        _mainMenuController?.Dispose();
-        _gameController?.Dispose();
+        _activeController?.Dispose();
 
         _profilePlayer.CurrentState.UnSubscribeOnChange(OnChangeGameState);
     }
@@ -48,27 +43,22 @@ internal class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _iAPService);
                 _activeController?.Dispose();
-                _activeController = _mainMenuController;
+                _activeController = new MainMenuController(_placeForUi, _profilePlayer, _iAPService);
                 break;
             case GameState.Game:
-                _gameController = new GameController(_profilePlayer, _analyticsManager);
                 _activeController?.Dispose();
-                _activeController = _gameController;
+                _activeController = new GameController(_profilePlayer, _analyticsManager);
                 break;
             case GameState.Settings:
-                _settingsMenuController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 _activeController?.Dispose();
-                _activeController = _settingsMenuController;
+                _activeController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 break;
             case GameState.ShowRewardedAdd:
                 _adsService.RewardedPlayer.Play();
                 break;
             default:
-                _mainMenuController?.Dispose();
-                _gameController?.Dispose();
-                _settingsMenuController?.Dispose();
+                _activeController?.Dispose();
                 break;
         }
     }

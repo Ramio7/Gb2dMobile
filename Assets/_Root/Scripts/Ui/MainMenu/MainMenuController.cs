@@ -39,9 +39,6 @@ namespace Ui
 
         private void ShowRewardedAdd() => _profilePlayer.CurrentState.Value = GameState.ShowRewardedAdd;
 
-        private void PurshaseCoins()
-        {
-            _iAPService.Buy("product_1");
-        }
+        private void PurshaseCoins() => _iAPService.Buy("product_1");
     }
 }
