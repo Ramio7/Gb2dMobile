@@ -13,9 +13,9 @@ internal class MainController : BaseController
 
     private BaseController _activeController;
 
-    private UnityAdsService _adsService;
-    private AnalyticsManager _analyticsManager;
-    private IAPService _iAPService;
+    private readonly UnityAdsService _adsService;
+    private readonly AnalyticsManager _analyticsManager;
+    private readonly IAPService _iapService;
 
     public MainController(Transform placeForUi, ProfilePlayer profilePlayer, UnityAdsService unityAdsService, AnalyticsManager analyticsManager, IAPService iAPService)
     {
@@ -24,7 +24,7 @@ internal class MainController : BaseController
 
         _adsService = unityAdsService;
         _analyticsManager = analyticsManager;
-        _iAPService = iAPService;
+        _iapService = iAPService;
 
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
         OnChangeGameState(_profilePlayer.CurrentState.Value);
@@ -44,7 +44,7 @@ internal class MainController : BaseController
         {
             case GameState.Start:
                 _activeController?.Dispose();
-                _activeController = new MainMenuController(_placeForUi, _profilePlayer, _iAPService);
+                _activeController = new MainMenuController(_placeForUi, _profilePlayer, _iapService, _adsService);
                 break;
             case GameState.Game:
                 _activeController?.Dispose();
@@ -53,9 +53,6 @@ internal class MainController : BaseController
             case GameState.Settings:
                 _activeController?.Dispose();
                 _activeController = new SettingsMenuController(_placeForUi, _profilePlayer);
-                break;
-            case GameState.ShowRewardedAdd:
-                _adsService.RewardedPlayer.Play();
                 break;
             default:
                 _activeController?.Dispose();

@@ -1,4 +1,5 @@
 using Profile;
+using Services.Ads;
 using Services.IAP;
 using Tool;
 using UnityEngine;
@@ -13,13 +14,15 @@ namespace Ui
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
 
-        private readonly IAPService _iAPService;
+        private readonly IAPService _iapService;
+        private readonly IAdsService _adsService;
 
 
-        public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer, IAPService iAPService)
+        public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer, IAPService iapService, IAdsService adsService)
         {
             _profilePlayer = profilePlayer;
-            _iAPService = iAPService;
+            _iapService = iapService;
+            _adsService = adsService;
             _view = LoadView(placeForUi);
             _view.Init(StartGame, Settings, ShowRewardedAdd, PurshaseCoins);
         }
@@ -37,8 +40,8 @@ namespace Ui
 
         private void Settings() => _profilePlayer.CurrentState.Value = GameState.Settings;
 
-        private void ShowRewardedAdd() => _profilePlayer.CurrentState.Value = GameState.ShowRewardedAdd;
+        private void ShowRewardedAdd() => _adsService.RewardedPlayer.Play();
 
-        private void PurshaseCoins() => _iAPService.Buy("product_1");
+        private void PurshaseCoins() => _iapService.Buy("product_1");
     }
 }
