@@ -5,6 +5,7 @@ using UnityEngine;
 using Services.Ads.UnityAds;
 using Services.Analytics;
 using Services.IAP;
+using Features.Shed;
 
 internal class MainController : BaseController
 {
@@ -48,11 +49,15 @@ internal class MainController : BaseController
                 break;
             case GameState.Game:
                 _activeController?.Dispose();
-                _activeController = new GameController(_profilePlayer, _analyticsManager);
+                _activeController = new GameController(_placeForUi, _profilePlayer, _analyticsManager);
                 break;
             case GameState.Settings:
                 _activeController?.Dispose();
                 _activeController = new SettingsMenuController(_placeForUi, _profilePlayer);
+                break;
+            case GameState.Shed:
+                _activeController?.Dispose();
+                _activeController = new ShedController(_placeForUi, _profilePlayer);
                 break;
             default:
                 _activeController?.Dispose();

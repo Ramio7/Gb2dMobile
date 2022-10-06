@@ -9,7 +9,7 @@ namespace Ui
 {
     internal class MainMenuController : BaseController
     {
-        private static readonly ResourcePath resourcePath = new("Prefabs/MainMenu");
+        private static readonly ResourcePath resourcePath = new("Prefabs/UI/MainMenu");
         private readonly ResourcePath _resourcePath = resourcePath;
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
@@ -24,7 +24,7 @@ namespace Ui
             _iapService = iapService;
             _adsService = adsService;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame, Settings, ShowRewardedAdd, PurshaseCoins);
+            _view.Init(StartGame, Settings, ShowRewardedAdd, PurshaseCoins, EnterShed);
         }
 
         private MainMenuView LoadView(Transform placeForUi)
@@ -39,6 +39,8 @@ namespace Ui
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
 
         private void Settings() => _profilePlayer.CurrentState.Value = GameState.Settings;
+
+        private void EnterShed() => _profilePlayer.CurrentState.Value = GameState.Shed;
 
         private void ShowRewardedAdd() => _adsService.RewardedPlayer.Play();
 
