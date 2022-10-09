@@ -146,7 +146,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903551}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132969249}
   - component: {fileID: 1132969248}
+  - component: {fileID: 1132969250}
   m_Layer: 0
   m_Name: Services
   m_TagString: Untagged
@@ -334,6 +335,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132969250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132969247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751b8a279cf69ec499cac3211c51d80a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adsService: {fileID: 1586086010}
+  _iapService: {fileID: 1383511861}
+  _analyticsManager: {fileID: 931475635}
 --- !u!1 &1165112438
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +634,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1f1f3a311c471e921b56ebcc0f1a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameConfig: {fileID: 11400000, guid: d0a1d0de4eae09e4ab3b6a311a8fb363, type: 2}
   _placeForUi: {fileID: 1903552}
-  _iapService: {fileID: 1383511861}
-  _adsService: {fileID: 1586086010}
-  _analytics: {fileID: 931475635}

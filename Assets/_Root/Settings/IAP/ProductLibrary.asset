@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ProductLibrary
   m_EditorClassIdentifier: 
   <Products>k__BackingField:
-  - <Id>k__BackingField: product_1
+  - <Id>k__BackingField: coins
     <ProductType>k__BackingField: 0
   - <Id>k__BackingField: product_2
     <ProductType>k__BackingField: 0

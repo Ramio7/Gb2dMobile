@@ -418,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec1ff07dc984d7e90a763a7633ec1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _productId: coins
   _buttonStart: {fileID: 315532611085353152}
   _buttonSettings: {fileID: 4262255905764398074}
   _buttonRewardedAdd: {fileID: 3320963554188152845}

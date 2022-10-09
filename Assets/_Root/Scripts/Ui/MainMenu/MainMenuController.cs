@@ -1,7 +1,6 @@
-using Profile;
-using Services.Ads;
-using Services.IAP;
 using Tool;
+using Profile;
+using Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,23 +8,27 @@ namespace Ui
 {
     internal class MainMenuController : BaseController
     {
-        private static readonly ResourcePath resourcePath = new("Prefabs/UI/MainMenu");
-        private readonly ResourcePath _resourcePath = resourcePath;
+        private readonly ResourcePath _resourcePath = new("Prefabs/Ui/MainMenu");
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
 
-        private readonly IAPService _iapService;
-        private readonly IAdsService _adsService;
 
-
-        public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer, IAPService iapService, IAdsService adsService)
+        public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
-            _iapService = iapService;
-            _adsService = adsService;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame, Settings, ShowRewardedAdd, PurshaseCoins, EnterShed);
+            _view.Init(StartGame, OpenSettings, PlayRewardedAds, BuyProduct, OpenShed);
+
+            SubscribeAds();
+            SubscribeIAP();
         }
+
+        protected override void OnDispose()
+        {
+            UnsubscribeAds();
+            UnsubscribeIAP();
+        }
+
 
         private MainMenuView LoadView(Transform placeForUi)
         {
@@ -36,14 +39,51 @@ namespace Ui
             return objectView.GetComponent<MainMenuView>();
         }
 
-        private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
+        private void StartGame() =>
+            _profilePlayer.CurrentState.Value = GameState.Game;
 
-        private void Settings() => _profilePlayer.CurrentState.Value = GameState.Settings;
+        private void OpenSettings() =>
+            _profilePlayer.CurrentState.Value = GameState.Settings;
 
-        private void EnterShed() => _profilePlayer.CurrentState.Value = GameState.Shed;
+        private void OpenShed() =>
+            _profilePlayer.CurrentState.Value = GameState.Shed;
 
-        private void ShowRewardedAdd() => _adsService.RewardedPlayer.Play();
+        private void PlayRewardedAds() =>
+            ServiceRoster.AdsService.RewardedPlayer.Play();
 
-        private void PurshaseCoins() => _iapService.Buy("product_1");
+        private void BuyProduct(string productId) =>
+            ServiceRoster.IAPService.Buy(productId);
+
+        private void SubscribeAds()
+        {
+            ServiceRoster.AdsService.RewardedPlayer.Finished += OnAdsFinished;
+            ServiceRoster.AdsService.RewardedPlayer.Failed += OnAdsCancelled;
+            ServiceRoster.AdsService.RewardedPlayer.Skipped += OnAdsCancelled;
+        }
+
+        private void UnsubscribeAds()
+        {
+            ServiceRoster.AdsService.RewardedPlayer.Finished -= OnAdsFinished;
+            ServiceRoster.AdsService.RewardedPlayer.Failed -= OnAdsCancelled;
+            ServiceRoster.AdsService.RewardedPlayer.Skipped -= OnAdsCancelled;
+        }
+
+        private void SubscribeIAP()
+        {
+            ServiceRoster.IAPService.PurchaseSucceed.AddListener(OnIAPSucceed);
+            ServiceRoster.IAPService.PurchaseFailed.AddListener(OnIAPFailed);
+        }
+
+        private void UnsubscribeIAP()
+        {
+            ServiceRoster.IAPService.PurchaseSucceed.RemoveListener(OnIAPSucceed);
+            ServiceRoster.IAPService.PurchaseFailed.RemoveListener(OnIAPFailed);
+        }
+
+        private void OnAdsFinished() => Log("You've received a reward for ads!");
+        private void OnAdsCancelled() => Log("Receiving a reward for ads has been interrupted!");
+
+        private void OnIAPSucceed() => Log("Purchase succeed");
+        private void OnIAPFailed() => Log("Purchase failed");
     }
 }
