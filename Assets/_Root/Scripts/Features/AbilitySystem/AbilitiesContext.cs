@@ -13,7 +13,6 @@ namespace Features.AbilitySystem
         private static readonly ResourcePath _dataSourcePath = new("Configs/Ability/AbilityItemConfigDataSource");
         private static readonly ResourcePath _viewPath = new("Prefabs/Ability/AbilitiesView");
 
-
         public AbilitiesContext([NotNull] Transform placeForUi, [NotNull] IAbilityActivator activator)
         {
             if (placeForUi == null)

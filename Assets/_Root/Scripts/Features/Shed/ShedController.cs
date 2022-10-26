@@ -6,7 +6,6 @@ using UnityEngine;
 using Features.Inventory;
 using Features.Shed.Upgrade;
 using JetBrains.Annotations;
-using Object = UnityEngine.Object;
 
 namespace Features.Shed
 {
@@ -16,58 +15,26 @@ namespace Features.Shed
 
     internal class ShedController : BaseController, IShedController
     {
-        private readonly ResourcePath _viewPath = new("Prefabs/Shed/ShedView");
-        private readonly ResourcePath _dataSourcePath = new("Configs/Shed/UpgradeItemConfigDataSource");
-
         private readonly IShedView _view;
         private readonly ProfilePlayer _profilePlayer;
         private readonly IUpgradeHandlersRepository _upgradeHandlersRepository;
 
-
         public ShedController(
-            [NotNull] Transform placeForUi,
-            [NotNull] ProfilePlayer profilePlayer)
+            [NotNull] IShedView view,
+            [NotNull] ProfilePlayer profilePlayer,
+            [NotNull] IUpgradeHandlersRepository upgradeHandlersRepository)
         {
-            if (placeForUi == null)
-                throw new ArgumentNullException(nameof(placeForUi));
-
             _profilePlayer
                 = profilePlayer ?? throw new ArgumentNullException(nameof(profilePlayer));
 
-            var _inventoryContext = CreateInventoryContext(placeForUi, _profilePlayer.Inventory);
-            _upgradeHandlersRepository = CreateRepository();
-            _view = LoadView(placeForUi);
+            _view 
+                = view ?? throw new ArgumentNullException(nameof(view));
+
+            _upgradeHandlersRepository 
+                = upgradeHandlersRepository ?? throw new ArgumentNullException(nameof(upgradeHandlersRepository));
 
             _view.Init(Apply, Back);
         }
-
-
-        private InventoryContext CreateInventoryContext(Transform placeForUi, IInventoryModel model)
-        {
-            var context = new InventoryContext(placeForUi, model);
-            AddContext(context);
-
-            return context;
-        }
-
-        private UpgradeHandlersRepository CreateRepository()
-        {
-            UpgradeItemConfig[] upgradeConfigs = ContentDataSourceLoader.LoadUpgradeItemConfigs(_dataSourcePath);
-            var repository = new UpgradeHandlersRepository(upgradeConfigs);
-            AddRepository(repository);
-
-            return repository;
-        }
-
-        private ShedView LoadView(Transform placeForUi)
-        {
-            GameObject prefab = ResourcesLoader.LoadPrefab(_viewPath);
-            GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
-            AddGameObject(objectView);
-
-            return objectView.GetComponent<ShedView>();
-        }
-
 
         private void Apply()
         {

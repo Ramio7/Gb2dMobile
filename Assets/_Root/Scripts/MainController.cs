@@ -11,7 +11,6 @@ internal class MainController : BaseController
 
     private BaseController _activeController;
 
-
     public MainController(Transform placeForUi, ProfilePlayer profilePlayer)
     {
         _placeForUi = placeForUi;
@@ -41,7 +40,7 @@ internal class MainController : BaseController
                 _activeController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 break;
             case GameState.Shed:
-                _activeController = new ShedController(_placeForUi, _profilePlayer);
+                //_activeController = new ShedController(, _profilePlayer,);
                 break;
             case GameState.Game:
                 _activeController = new GameController(_placeForUi, _profilePlayer);

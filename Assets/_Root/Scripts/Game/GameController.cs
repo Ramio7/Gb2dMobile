@@ -19,7 +19,6 @@ namespace Game
         private readonly TapeBackgroundController _tapeBackgroundController;
         private readonly AbilitiesContext _abilitiesContext;
 
-
         public GameController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
             _leftMoveDiff = new SubscriptionProperty<float>();
