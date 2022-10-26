@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,28 +12,39 @@ namespace BattleScripts
         [SerializeField] private TMP_Text _countMoneyText;
         [SerializeField] private TMP_Text _countHealthText;
         [SerializeField] private TMP_Text _countPowerText;
+        [SerializeField] private TMP_Text _securityStatusText;
 
         [Header("Enemy Stats")]
         [SerializeField] private TMP_Text _countPowerEnemyText;
 
         [Header("Money Buttons")]
         [SerializeField] private Button _addMoneyButton;
-        [SerializeField] private Button _minusMoneyButton;
+        [SerializeField] private Button _substractMoneyButton;
 
         [Header("Health Buttons")]
         [SerializeField] private Button _addHealthButton;
-        [SerializeField] private Button _minusHealthButton;
+        [SerializeField] private Button _substractHealthButton;
 
         [Header("Power Buttons")]
         [SerializeField] private Button _addPowerButton;
-        [SerializeField] private Button _minusPowerButton;
+        [SerializeField] private Button _substractPowerButton;
+
+        [Header("Security Status Buttons")]
+        [SerializeField] private Button _addSecurityStatusButton;
+        [SerializeField] private Button _substractSecurityStatusButton;
 
         [Header("Other Buttons")]
         [SerializeField] private Button _fightButton;
+        [SerializeField] private Button _escapeTheFightButton;
+
+        private const int _maxSecurityStatus = 5;
+        private const int _minSecurityStatus = 0;
 
         private PlayerData _money;
         private PlayerData _heath;
         private PlayerData _power;
+        private PlayerData _securityStatus;
+
 
         private Enemy _enemy;
 
@@ -44,6 +56,7 @@ namespace BattleScripts
             _money = CreatePlayerData(DataType.Money);
             _heath = CreatePlayerData(DataType.Health);
             _power = CreatePlayerData(DataType.Power);
+            _securityStatus = CreatePlayerData(DataType.SecurityStatus);
 
             Subscribe();
         }
@@ -53,6 +66,7 @@ namespace BattleScripts
             DisposePlayerData(ref _money);
             DisposePlayerData(ref _heath);
             DisposePlayerData(ref _power);
+            DisposePlayerData(ref _securityStatus);
 
             Unsubscribe();
         }
@@ -60,7 +74,7 @@ namespace BattleScripts
 
         private PlayerData CreatePlayerData(DataType dataType)
         {
-            PlayerData playerData = new PlayerData(dataType);
+            PlayerData playerData = new(dataType);
             playerData.Attach(_enemy);
 
             return playerData;
@@ -76,29 +90,34 @@ namespace BattleScripts
         private void Subscribe()
         {
             _addMoneyButton.onClick.AddListener(IncreaseMoney);
-            _minusMoneyButton.onClick.AddListener(DecreaseMoney);
+            _substractMoneyButton.onClick.AddListener(DecreaseMoney);
 
             _addHealthButton.onClick.AddListener(IncreaseHealth);
-            _minusHealthButton.onClick.AddListener(DecreaseHealth);
+            _substractHealthButton.onClick.AddListener(DecreaseHealth);
 
             _addPowerButton.onClick.AddListener(IncreasePower);
-            _minusPowerButton.onClick.AddListener(DecreasePower);
+            _substractPowerButton.onClick.AddListener(DecreasePower);
+
+            _addSecurityStatusButton.onClick.AddListener(IncreaseSecurityStatus);
+            _substractSecurityStatusButton.onClick.AddListener(DecreaseSecurityStatus);
 
             _fightButton.onClick.AddListener(Fight);
+            _escapeTheFightButton.onClick.AddListener(Escape);
         }
 
         private void Unsubscribe()
         {
             _addMoneyButton.onClick.RemoveAllListeners();
-            _minusMoneyButton.onClick.RemoveAllListeners();
+            _substractMoneyButton.onClick.RemoveAllListeners();
 
             _addHealthButton.onClick.RemoveAllListeners();
-            _minusHealthButton.onClick.RemoveAllListeners();
+            _substractHealthButton.onClick.RemoveAllListeners();
 
             _addPowerButton.onClick.RemoveAllListeners();
-            _minusPowerButton.onClick.RemoveAllListeners();
+            _substractPowerButton.onClick.RemoveAllListeners();
 
             _fightButton.onClick.RemoveAllListeners();
+            _escapeTheFightButton.onClick.RemoveAllListeners();
         }
 
 
@@ -110,6 +129,16 @@ namespace BattleScripts
 
         private void IncreasePower() => IncreaseValue(_power);
         private void DecreasePower() => DecreaseValue(_power);
+
+        private void IncreaseSecurityStatus()
+        {
+            if (_securityStatus.Value < _maxSecurityStatus) IncreaseValue(_securityStatus);
+        }
+
+        private void DecreaseSecurityStatus()
+        {
+            if (_securityStatus.Value > _minSecurityStatus) DecreaseValue(_securityStatus);
+        }
 
         private void IncreaseValue(PlayerData playerData) => AddToValue(1, playerData);
         private void DecreaseValue(PlayerData playerData) => AddToValue(-1, playerData);
@@ -130,6 +159,8 @@ namespace BattleScripts
 
             int enemyPower = _enemy.CalcPower();
             _countPowerEnemyText.text = $"Enemy Power {enemyPower}";
+
+            _escapeTheFightButton.gameObject.SetActive(_enemy.SecurityCheck());
         }
 
         private TMP_Text GetTextComponent(DataType dataType) =>
@@ -138,6 +169,7 @@ namespace BattleScripts
                 DataType.Money => _countMoneyText,
                 DataType.Health => _countHealthText,
                 DataType.Power => _countPowerText,
+                DataType.SecurityStatus => _securityStatusText,
                 _ => throw new ArgumentException($"Wrong {nameof(DataType)}")
             };
 
@@ -152,5 +184,7 @@ namespace BattleScripts
 
             Debug.Log($"<color={color}>{message}!!!</color>");
         }
+
+        private void Escape() => Debug.Log("Escaped the fight");
     }
 }
