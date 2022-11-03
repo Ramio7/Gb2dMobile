@@ -23,6 +23,8 @@ namespace Tween.Editor
             var animationType = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.AnimationTypeName));
             var curveEase = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.CurveEaseName));
             var duration = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.DurationName));
+            var timeDelay = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.TimeDelay));
+            var loopCount = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.LoopCount));
 
             var tweenLabel = new Label("Settings Tween");
             var intractableLabel = new Label("Interactable");
@@ -31,6 +33,8 @@ namespace Tween.Editor
             root.Add(animationType);
             root.Add(curveEase);
             root.Add(duration);
+            root.Add(loopCount);
+            root.Add(timeDelay);
 
             root.Add(intractableLabel);
             root.Add(new IMGUIContainer(OnInspectorGUI));
