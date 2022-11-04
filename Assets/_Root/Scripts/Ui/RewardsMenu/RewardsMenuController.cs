@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Rewards
 {
-    internal class RewardsMenuController
+    internal class RewardsMenuController : BaseController
     {
         private readonly RewardsMenuView _rewardsMenuView;
 

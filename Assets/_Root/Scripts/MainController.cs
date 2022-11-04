@@ -45,6 +45,9 @@ internal class MainController : BaseController
             case GameState.Game:
                 _activeController = new GameController(_placeForUi, _profilePlayer);
                 break;
+            case GameState.Battle:
+                _activeController = new BattleController(_placeForUi, _profilePlayer);
+                break;
         }
     }
 }

@@ -698,24 +698,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4824171182889201562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bd00a4ca4143e48e7003ff0ff20f2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 42dbbb12900f10546bb40cc2e5ed9ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _countMoneyText: {fileID: 4824171182896425065}
-  _countHealthText: {fileID: 4824171182970782021}
-  _countPowerText: {fileID: 4824171184538198257}
-  _securityStatusText: {fileID: 4824171183080802936}
-  _countPowerEnemyText: {fileID: 4824171182463841550}
-  _addMoneyButton: {fileID: 4824171183943721471}
-  _substractMoneyButton: {fileID: 4824171184388193559}
-  _addHealthButton: {fileID: 4824171184459446604}
-  _substractHealthButton: {fileID: 4824171182587973149}
-  _addPowerButton: {fileID: 4824171182455520495}
-  _substractPowerButton: {fileID: 4824171183408760883}
-  _addSecurityStatusButton: {fileID: 4824171184377014883}
-  _substractSecurityStatusButton: {fileID: 4824171183430572431}
-  _fightButton: {fileID: 4824171182949850410}
-  _escapeTheFightButton: {fileID: 4824171184239859596}
+  <CountMoneyText>k__BackingField: {fileID: 4824171182896425065}
+  <CountHealthText>k__BackingField: {fileID: 4824171182970782021}
+  <CountPowerText>k__BackingField: {fileID: 4824171184538198257}
+  <SecurityStatusText>k__BackingField: {fileID: 4824171183080802936}
+  <CountPowerEnemyText>k__BackingField: {fileID: 4824171182463841550}
+  <AddMoneyButton>k__BackingField: {fileID: 4824171183943721471}
+  <SubstractMoneyButton>k__BackingField: {fileID: 4824171184388193559}
+  <AddHealthButton>k__BackingField: {fileID: 4824171184459446604}
+  <SubstractHealthButton>k__BackingField: {fileID: 4824171182587973149}
+  <AddPowerButton>k__BackingField: {fileID: 4824171182455520495}
+  <SubstractPowerButton>k__BackingField: {fileID: 4824171183408760883}
+  <AddSecurityStatusButton>k__BackingField: {fileID: 4824171184377014883}
+  <SubstractSecurityStatusButton>k__BackingField: {fileID: 4824171183430572431}
+  <FightButton>k__BackingField: {fileID: 4824171182949850410}
+  <EscapeTheFightButton>k__BackingField: {fileID: 4824171184239859596}
 --- !u!1 &4824171182896425063
 GameObject:
   m_ObjectHideFlags: 0

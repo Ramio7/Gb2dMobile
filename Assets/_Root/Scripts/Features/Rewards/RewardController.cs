@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Rewards
 {
-    internal class RewardController
+    internal class RewardController : BaseController
     {
         private readonly RewardView _view;
 
