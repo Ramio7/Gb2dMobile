@@ -1,18 +1,21 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Tween
 {
-    [RequireComponent(typeof(Button))]
     [RequireComponent(typeof(RectTransform))]
-    public class CustomButtonByComposition : MonoBehaviour
+    public class CustomButtonAnimation_Obsolete : Button
     {
-        [Header("Components")]
-        [SerializeField] private Button _button;
+        public static string AnimationTypeName => nameof(_animationButtonType);
+        public static string CurveEaseName => nameof(_curveEase);
+        public static string DurationName => nameof(_duration);
+        public static string TimeDelay => nameof(_timeDelay);
+        public static string LoopCount => nameof(_loopCount);
+
         [SerializeField] private RectTransform _rectTransform;
 
-        [Header("Settings")]
         [SerializeField] private AnimationButtonType _animationButtonType = AnimationButtonType.ChangePosition;
         [SerializeField] private Ease _curveEase = Ease.Linear;
         [SerializeField] private float _duration = 0.6f;
@@ -24,21 +27,27 @@ namespace Tween
 
         private Tweener _animation;
 
-        private void OnValidate() => InitComponents();
-        private void Awake() => InitComponents();
-
-        private void Start() => _button.onClick.AddListener(OnButtonClick);
-        private void OnDestroy() => _button.onClick.RemoveAllListeners();
-
-        private void InitComponents()
+        protected override void Awake()
         {
-            _button = _button != null ? _button : GetComponent<Button>();
-            _rectTransform = _rectTransform != null ? _rectTransform : GetComponent<RectTransform>();
+            base.Awake();
+            InitRectTransform();
         }
 
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            InitRectTransform();
+        }
 
-        private void OnButtonClick() =>
+        private void InitRectTransform() =>
+            _rectTransform = _rectTransform != null ? _rectTransform : GetComponent<RectTransform>();
+
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            base.OnPointerClick(eventData);
             ActivateAnimation();
+        }
 
         private void ActivateAnimation()
         {

@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 namespace Rewards
 {
-    internal class InstallController
+    internal class RewardsMenuController
     {
-        private readonly InstallView _installView;
+        private readonly RewardsMenuView _rewardsMenuView;
 
         private bool _isInitialized;
 
         private List<RewardView> _rewardViews;
 
-        public InstallController(InstallView installView)
+        public RewardsMenuController(RewardsMenuView rewardsMenuView)
         {
-            _installView = installView;
+            _rewardsMenuView = rewardsMenuView;
         }
 
         public void Init()
@@ -37,33 +37,33 @@ namespace Rewards
 
         private void SubscribeButtons()
         {
-            _installView.DailyRewardsButton.onClick.AddListener(SetDailyRewardView);
-            _installView.WeeklyRewardsButton.onClick.AddListener(SetWeeklyRewardView);
+            _rewardsMenuView.DailyRewardsButton.onClick.AddListener(SetDailyRewardView);
+            _rewardsMenuView.WeeklyRewardsButton.onClick.AddListener(SetWeeklyRewardView);
         }
 
         private void UnsubscribeButtons()
         {
-            _installView.DailyRewardsButton.onClick.RemoveListener(SetDailyRewardView);
-            _installView.WeeklyRewardsButton.onClick.RemoveListener(SetWeeklyRewardView);
+            _rewardsMenuView.DailyRewardsButton.onClick.RemoveListener(SetDailyRewardView);
+            _rewardsMenuView.WeeklyRewardsButton.onClick.RemoveListener(SetWeeklyRewardView);
         }
 
         public void SetDailyRewardView()
         {
             SetAllViewsBackground();
             _rewardViews[0].MountRootSlotsReward.gameObject.SetActive(true);
-            //_installView.RewardControllersList[0].SubscribeButtons();
+            //_rewardsMenuView.RewardControllersList[0].SubscribeButtons();
         }
 
         private void SetWeeklyRewardView()
         {
             SetAllViewsBackground();
             _rewardViews[1].MountRootSlotsReward.gameObject.SetActive(true);
-            //_installView.RewardControllersList[1].SubscribeButtons();
+            //_rewardsMenuView.RewardControllersList[1].SubscribeButtons();
         }
 
         private void SetAllViewsBackground()
         {
-            _installView.RewardControllersList.ForEach(controller => controller.UnsubscribeButtons());
+            _rewardsMenuView.RewardControllersList.ForEach(controller => controller.UnsubscribeButtons());
             //_rewardViews.ForEach(rewardView => rewardView.gameObject.;
         }
 
@@ -71,8 +71,8 @@ namespace Rewards
         {
             _rewardViews = new()
             {
-                _installView.DailyRewardView,
-                _installView.WeeklyRewardView
+                _rewardsMenuView.DailyRewardView,
+                _rewardsMenuView.WeeklyRewardView
             };
         }
     }

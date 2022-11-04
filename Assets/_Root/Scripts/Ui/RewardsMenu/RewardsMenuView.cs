@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Rewards
 {
-    internal class InstallView : MonoBehaviour
+    internal class RewardsMenuView : MonoBehaviour
     {
         [field: SerializeField] public RewardView DailyRewardView { get; private set; }
         [field: SerializeField] public RewardView WeeklyRewardView { get; private set; }
@@ -16,7 +16,7 @@ namespace Rewards
         private RewardController _dailyRewardController;
         private RewardController _weeklyRewardController;
 
-        private InstallController _installController;
+        private RewardsMenuController _installController;
 
         public List<RewardController> RewardControllersList { get; private set; }
 

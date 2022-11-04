@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Tween.Editor
 {
-    [CustomEditor(typeof(CustomButtonByInheritance))]
+    [CustomEditor(typeof(CustomButtonAnimation_Obsolete))]
     internal class CustomButtonEditor : ButtonEditor
     {
         private SerializedProperty m_InteractableProperty;
@@ -20,11 +20,11 @@ namespace Tween.Editor
         {
             var root = new VisualElement();
 
-            var animationType = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.AnimationTypeName));
-            var curveEase = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.CurveEaseName));
-            var duration = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.DurationName));
-            var timeDelay = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.TimeDelay));
-            var loopCount = new PropertyField(serializedObject.FindProperty(CustomButtonByInheritance.LoopCount));
+            var animationType = new PropertyField(serializedObject.FindProperty(CustomButtonAnimation_Obsolete.AnimationTypeName));
+            var curveEase = new PropertyField(serializedObject.FindProperty(CustomButtonAnimation_Obsolete.CurveEaseName));
+            var duration = new PropertyField(serializedObject.FindProperty(CustomButtonAnimation_Obsolete.DurationName));
+            var timeDelay = new PropertyField(serializedObject.FindProperty(CustomButtonAnimation_Obsolete.TimeDelay));
+            var loopCount = new PropertyField(serializedObject.FindProperty(CustomButtonAnimation_Obsolete.LoopCount));
 
             var tweenLabel = new Label("Settings Tween");
             var intractableLabel = new Label("Interactable");

@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1903552}
   m_Layer: 5
-  m_Name: PlaceForUi
+  m_Name: UIContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,4 +635,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameConfig: {fileID: 11400000, guid: d0a1d0de4eae09e4ab3b6a311a8fb363, type: 2}
-  _placeForUi: {fileID: 1903552}
+  _uiContainer: {fileID: 1903552}

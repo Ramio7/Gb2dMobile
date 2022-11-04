@@ -1,21 +1,18 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 namespace Tween
 {
+    [RequireComponent(typeof(Button))]
     [RequireComponent(typeof(RectTransform))]
-    public class CustomButtonByInheritance : Button
+    public class CustomButtonAnimation : MonoBehaviour
     {
-        public static string AnimationTypeName => nameof(_animationButtonType);
-        public static string CurveEaseName => nameof(_curveEase);
-        public static string DurationName => nameof(_duration);
-        public static string TimeDelay => nameof(_timeDelay);
-        public static string LoopCount => nameof(_loopCount);
-
+        [Header("Components")]
+        [SerializeField] private Button _button;
         [SerializeField] private RectTransform _rectTransform;
 
+        [Header("Settings")]
         [SerializeField] private AnimationButtonType _animationButtonType = AnimationButtonType.ChangePosition;
         [SerializeField] private Ease _curveEase = Ease.Linear;
         [SerializeField] private float _duration = 0.6f;
@@ -27,27 +24,21 @@ namespace Tween
 
         private Tweener _animation;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            InitRectTransform();
-        }
+        private void OnValidate() => InitComponents();
+        private void Awake() => InitComponents();
 
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-            InitRectTransform();
-        }
+        private void Start() => _button.onClick.AddListener(OnButtonClick);
+        private void OnDestroy() => _button.onClick.RemoveAllListeners();
 
-        private void InitRectTransform() =>
+        private void InitComponents()
+        {
+            _button = _button != null ? _button : GetComponent<Button>();
             _rectTransform = _rectTransform != null ? _rectTransform : GetComponent<RectTransform>();
-
-
-        public override void OnPointerClick(PointerEventData eventData)
-        {
-            base.OnPointerClick(eventData);
-            ActivateAnimation();
         }
+
+
+        private void OnButtonClick() =>
+            ActivateAnimation();
 
         private void ActivateAnimation()
         {
