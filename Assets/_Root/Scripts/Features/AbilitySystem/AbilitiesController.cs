@@ -7,6 +7,7 @@ namespace Features.AbilitySystem
 {
     internal interface IAbilitiesController
     {
+
     }
 
     internal class AbilitiesController : BaseController, IAbilitiesController

@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
 using TMPro;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Features.Rewards.Slot;
 
-namespace Rewards
+namespace Features.Rewards
 {
     internal class RewardView : MonoBehaviour
     {
-        private const string CurrentSlotInActiveKey = nameof(CurrentSlotInActiveKey);
+        [Header("Settings PlayerPrefs Keys")]
+        [SerializeField] private string CurrentSlotInActiveKey = nameof(CurrentSlotInActiveKey);
+        [SerializeField] private string TimeGetRewardKey = nameof(TimeGetRewardKey);
 
-        private const string TimeGetRewardKey = nameof(TimeGetRewardKey);
+        [field: Header("Settings Time Get Reward")]
+        [field: SerializeField] public float TimeCooldown { get; private set; } = 86400;
+        [field: SerializeField] public float TimeDeadline { get; private set; } = 172800;
 
-        [field: Header("Rewards list")]
-
-        [field: SerializeField] public RewardType RewardType { get; private set; }
+        [field: Header("Settings Rewards")]
         [field: SerializeField] public List<Reward> Rewards { get; private set; }
 
-        [field: Header("Time properties")]
-        [field: SerializeField] public float TimeCooldown { get; private set; }
-        [field: SerializeField] public float TimeDeadline { get; private set; }
+        [field: Header("Ui Elements")]
         [field: SerializeField] public TMP_Text TimerNewReward { get; private set; }
-
-        [field: Header("UI properties")]
-        [field: SerializeField] public ContainerSlotRewardView ContainerSlotRewardPrefab { get; private set;  }
-        [field: SerializeField] public Button GetRewardButton { get; private set; }
         [field: SerializeField] public Transform MountRootSlotsReward { get; private set; }
+        [field: SerializeField] public ContainerSlotRewardView ContainerSlotRewardPrefab { get; private set; }
+        [field: SerializeField] public Button GetRewardButton { get; private set; }
         [field: SerializeField] public Button ResetButton { get; private set; }
+        [field: SerializeField] public Button CloseButton { get; private set; }
 
         public int CurrentSlotInActive
         {

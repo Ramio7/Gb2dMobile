@@ -9,7 +9,7 @@ namespace Services
     internal class ServiceRoster : MonoBehaviour
     {
         private static ServiceRoster _instance;
-        private static ServiceRoster Instance => _instance = _instance != null ? _instance : FindObjectOfType<ServiceRoster>();
+        private static ServiceRoster Instance => _instance ??= FindObjectOfType<ServiceRoster>();
 
         public static IAdsService AdsService => Instance._adsService;
         public static IIAPService IAPService => Instance._iapService;
@@ -20,6 +20,6 @@ namespace Services
         [SerializeField] private AnalyticsManager _analyticsManager;
 
 
-        private void Awake() => _instance = _instance != null ? _instance : this;
+        private void Awake() => _instance ??= this;
     }
 }

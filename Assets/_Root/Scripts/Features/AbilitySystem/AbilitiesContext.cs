@@ -10,8 +10,9 @@ namespace Features.AbilitySystem
 {
     internal class AbilitiesContext : BaseContext
     {
-        private static readonly ResourcePath _dataSourcePath = new("Configs/Ability/AbilityItemConfigDataSource");
-        private static readonly ResourcePath _viewPath = new("Prefabs/Ability/AbilitiesView");
+        private static readonly ResourcePath _dataSourcePath = new ResourcePath("Configs/Ability/AbilityItemConfigDataSource");
+        private static readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Ability/AbilitiesView");
+
 
         public AbilitiesContext([NotNull] Transform placeForUi, [NotNull] IAbilityActivator activator)
         {
