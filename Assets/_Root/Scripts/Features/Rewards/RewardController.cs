@@ -1,49 +1,75 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Features.Rewards.Slot;
+using Features.Rewards.Currency;
+using Tool;
+using Profile;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Rewards
+namespace Features.Rewards
 {
     internal class RewardController : BaseController
     {
+        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/Rewards/DailyRewardsWindow Variant");
+        private readonly CurrencyController _currencyController;
+        private readonly ProfilePlayer _profilePlayer;
         private readonly RewardView _view;
 
         private List<ContainerSlotRewardView> _slots;
         private Coroutine _coroutine;
 
         private bool _isGetReward;
-        private bool _isInitialized;
 
 
-        public RewardController(RewardView view) =>
-            _view = view;
-
-
-        public void Init()
+        public RewardController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
-            if (_isInitialized)
-                return;
+            _view = LoadView(placeForUi);
+            _profilePlayer = profilePlayer;
+            _currencyController = CreateCurrencyController(placeForUi, profilePlayer.Currency);
 
+            InitView();
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            DeinitView();
+        }
+
+
+        private RewardView LoadView(Transform placeForUi)
+        {
+            GameObject prefab = ResourcesLoader.LoadPrefab(_resourcePath);
+            GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
+            AddGameObject(objectView);
+
+            return objectView.GetComponent<RewardView>();
+        }
+
+        private CurrencyController CreateCurrencyController(Transform placeForUi, CurrencyModel currencyModel)
+        {
+            var currencyController = new CurrencyController(currencyModel, placeForUi);
+            AddController(currencyController);
+
+            return currencyController;
+        }
+
+
+        private void InitView()
+        {
             InitSlots();
             RefreshUi();
             StartRewardsUpdating();
             SubscribeButtons();
-
-            _isInitialized = true;
         }
 
-        public void Deinit()
+        private void DeinitView()
         {
-            if (!_isInitialized)
-                return;
-
             DeinitSlots();
             StopRewardsUpdating();
             UnsubscribeButtons();
-
-            _isInitialized = false;
         }
 
 
@@ -75,7 +101,7 @@ namespace Rewards
         }
 
 
-        private void StartRewardsUpdating() => 
+        private void StartRewardsUpdating() =>
             _coroutine = _view.StartCoroutine(RewardsStateUpdater());
 
         private void StopRewardsUpdating()
@@ -100,16 +126,18 @@ namespace Rewards
         }
 
 
-        public void SubscribeButtons()
+        private void SubscribeButtons()
         {
             _view.GetRewardButton.onClick.AddListener(ClaimReward);
             _view.ResetButton.onClick.AddListener(ResetRewardsState);
+            _view.CloseButton.onClick.AddListener(Close);
         }
 
-        public void UnsubscribeButtons()
+        private void UnsubscribeButtons()
         {
             _view.GetRewardButton.onClick.RemoveListener(ClaimReward);
             _view.ResetButton.onClick.RemoveListener(ResetRewardsState);
+            _view.CloseButton.onClick.RemoveListener(Close);
         }
 
         private void ClaimReward()
@@ -119,13 +147,13 @@ namespace Rewards
 
             Reward reward = _view.Rewards[_view.CurrentSlotInActive];
 
-            switch (reward.ResourceType)
+            switch (reward.RewardType)
             {
-                case ResourceType.Wood:
-                    CurrencyView.Instance.AddWood(reward.CountCurrency);
+                case RewardType.Wood:
+                    _profilePlayer.Currency.Wood += reward.CountCurrency;
                     break;
-                case ResourceType.Diamond:
-                    CurrencyView.Instance.AddDiamond(reward.CountCurrency);
+                case RewardType.Diamond:
+                    _profilePlayer.Currency.Diamond += reward.CountCurrency;
                     break;
             }
 
@@ -199,11 +227,14 @@ namespace Rewards
             for (var i = 0; i < _slots.Count; i++)
             {
                 Reward reward = _view.Rewards[i];
-                int countDay = i + 1;
+                int countCooldownPeriods = i + 1;
                 bool isSelected = i == _view.CurrentSlotInActive;
 
-                _slots[i].SetData(reward, countDay, isSelected);
+                _slots[i].SetData(reward, countCooldownPeriods, isSelected);
             }
         }
+
+        private void Close() =>
+            _profilePlayer.CurrentState.Value = GameState.Start;
     }
 }

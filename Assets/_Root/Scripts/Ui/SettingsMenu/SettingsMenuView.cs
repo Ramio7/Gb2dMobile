@@ -4,13 +4,15 @@ using UnityEngine.UI;
 
 namespace Ui
 {
-    public class SettingsMenuView : MonoBehaviour
+    internal class SettingsMenuView : MonoBehaviour
     {
         [SerializeField] private Button _buttonBack;
 
 
-        public void Init(UnityAction mainMenu) => _buttonBack.onClick.AddListener(mainMenu);
+        public void Init(UnityAction backToMenu) =>
+            _buttonBack.onClick.AddListener(backToMenu);
 
-        public void OnDestroy() => _buttonBack.onClick.RemoveAllListeners();
+        public void OnDestroy() =>
+            _buttonBack.onClick.RemoveAllListeners();
     }
 }
