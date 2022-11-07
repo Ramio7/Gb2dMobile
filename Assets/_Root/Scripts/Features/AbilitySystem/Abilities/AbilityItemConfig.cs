@@ -1,5 +1,6 @@
 using UnityEngine;
 using Features.Inventory.Items;
+using UnityEngine.AddressableAssets;
 
 namespace Features.AbilitySystem.Abilities
 {
@@ -8,7 +9,7 @@ namespace Features.AbilitySystem.Abilities
         string Id { get; }
         Sprite Icon { get; }
         AbilityType Type { get; }
-        GameObject Projectile { get; }
+        AssetReference Projectile { get; }
         float Value { get; }
     }
 
@@ -17,7 +18,7 @@ namespace Features.AbilitySystem.Abilities
     {
         [SerializeField] private ItemConfig _itemConfig;
         [field: SerializeField] public AbilityType Type { get; private set; }
-        [field: SerializeField] public GameObject Projectile { get; private set; }
+        [field: SerializeField] public AssetReference Projectile { get; private set; }
         [field: SerializeField] public float Value { get; private set; }
 
         public string Id => _itemConfig.Id;

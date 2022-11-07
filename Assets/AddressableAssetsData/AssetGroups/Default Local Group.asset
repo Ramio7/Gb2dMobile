@@ -16,7 +16,16 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 358a0b338c3104c48b4c063f439d3419
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 39b578dfcab984965845298241e7fc07
+    m_Address: Assets/_Root/Prefabs/SpawnedButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+  - m_GUID: a10679f36518845da8fa80975c636950
+    m_Address: Prefabs/Ability/CannonBomb
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f2fd3f2671b0342c085196b05069e11a, type: 2}
   m_SchemaSet:

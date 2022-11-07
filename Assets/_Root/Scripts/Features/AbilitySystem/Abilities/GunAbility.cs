@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using JetBrains.Annotations;
-using Object = UnityEngine.Object;
+using UnityEngine.AddressableAssets;
 
 namespace Features.AbilitySystem.Abilities
 {
@@ -16,7 +16,7 @@ namespace Features.AbilitySystem.Abilities
 
         public void Apply(IAbilityActivator activator)
         {
-            var projectile = Object.Instantiate(_abilityItem.Projectile).GetComponent<Rigidbody2D>();
+            var projectile = Addressables.InstantiateAsync(_abilityItem.Projectile).Result.GetComponent<Rigidbody2D>();
             Vector3 force = activator.ViewGameObject.transform.right * _abilityItem.Value;
             projectile.AddForce(force, ForceMode2D.Force);
         }
