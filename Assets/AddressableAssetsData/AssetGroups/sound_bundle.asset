@@ -21,14 +21,6 @@ MonoBehaviour:
     m_Address: Assets/_Root/Audio/click_button.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 3001076f2368b438ba63004f53862bb5
-    m_Address: Assets/_Root/Audio/music.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f2fd3f2671b0342c085196b05069e11a, type: 2}
   m_SchemaSet:

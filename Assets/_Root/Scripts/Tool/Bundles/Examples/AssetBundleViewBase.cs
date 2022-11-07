@@ -24,12 +24,12 @@ namespace Tool.Bundles.Examples
             if (_spritesAssetBundle != null)
                 SetSpriteAssets(_spritesAssetBundle);
             else
-                Debug.LogError($"AssetBundle {nameof(_spritesAssetBundle)} failed to load");
+                Debug.LogError($"AssetBundleLoadingButtonController {nameof(_spritesAssetBundle)} failed to load");
 
             if (_audioAssetBundle != null)
                 SetAudioAssets(_audioAssetBundle);
             else
-                Debug.LogError($"AssetBundle {nameof(_audioAssetBundle)} failed to load");
+                Debug.LogError($"AssetBundleLoadingButtonController {nameof(_audioAssetBundle)} failed to load");
         }
 
         private IEnumerator GetSpritesAssetBundle()
