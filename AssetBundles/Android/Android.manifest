@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3578510306
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: tutorial_asset_bundle
+      Dependencies: {}
