@@ -1,13 +1,15 @@
 using System.Collections;
+using Tool.Bundles.Examples;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Homework9
 {
-    public class AssetBundleChangingSpriteButtonView : MonoBehaviour
+    internal class AssetBundleChangingSpriteButtonView : AssetBundleViewBase
     {
         [SerializeField] private string _assetBundleUrl;
+        [SerializeField] private string _assetName;
         [SerializeField] private Button _buttonToChange;
 
         private AssetBundle _assetBundle;
@@ -19,13 +21,21 @@ namespace Homework9
 
         private void Start()
         {
-            
+            StartCoroutine(nameof(LoadAssetBundle));
+            _buttonToChange.onClick.AddListener(SetNewButtonProperties);
         }
 
-        private void StartBackgroundChange()
+        private void OnDestroy()
+        {
+            StopCoroutine(nameof(LoadAssetBundle));
+            _buttonToChange.onClick.RemoveListener(SetNewButtonProperties);
+        }
+
+        private void SetNewButtonProperties()
         {
             DeactivateButton();
             ChangeButtonBackground();
+            _assetBundle.Unload(true);
         }
 
         private IEnumerator LoadAssetBundle()
@@ -38,6 +48,8 @@ namespace Homework9
                 yield return null;
 
             StateRequest(request, out _assetBundle);
+
+            StopCoroutine(nameof(LoadAssetBundle));
         }
 
         private void StateRequest(UnityWebRequest request, out AssetBundle assetBundle)
@@ -56,7 +68,7 @@ namespace Homework9
 
         private void ChangeButtonBackground()
         {
-            _buttonToChange.image.sprite = _assetBundle.LoadAsset<Sprite>("board");
+            _buttonToChange.image.sprite = _assetBundle.LoadAsset<Sprite>(_assetName);
         }
 
         private void DeactivateButton()

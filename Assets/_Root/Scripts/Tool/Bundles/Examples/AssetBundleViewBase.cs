@@ -34,7 +34,7 @@ namespace Tool.Bundles.Examples
 
         private IEnumerator GetSpritesAssetBundle()
         {
-            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(UrlAssetBundleSprites);
+            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(UrlAssetBundleSprites, (uint)_spritesAssetBundle.GetHashCode());
 
             yield return request.SendWebRequest();
 
@@ -46,7 +46,7 @@ namespace Tool.Bundles.Examples
 
         private IEnumerator GetAudioAssetBundle()
         {
-            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(UrlAssetBundleAudio);
+            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(UrlAssetBundleAudio, (uint)_audioAssetBundle.GetHashCode());
 
             yield return request.SendWebRequest();
 

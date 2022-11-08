@@ -270,5 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001b373c4986da048a0a16483a037d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AssetBundleUrl>k__BackingField: https://drive.google.com/uc?export=download&id=12IseAIO0M-GhFxgd-B45IIVJOuSPQ502
-  <ButtonToChange>k__BackingField: {fileID: 3889500320697456317}
+  _assetBundleUrl: https://drive.google.com/u/0/uc?id=12IseAIO0M-GhFxgd-B45IIVJOuSPQ502&export=download
+  _assetName: board
+  _buttonToChange: {fileID: 3889500320697456317}
