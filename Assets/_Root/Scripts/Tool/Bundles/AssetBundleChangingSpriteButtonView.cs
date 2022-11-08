@@ -1,20 +1,25 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace Homework9
 {
-    public class AssetBundleLoadingButtonController
+    public class AssetBundleChangingSpriteButtonView : MonoBehaviour
     {
-        private readonly AssetBundleLoadingButtonView _view;
+        [SerializeField] private string _assetBundleUrl;
+        [SerializeField] private Button _buttonToChange;
 
         private AssetBundle _assetBundle;
 
-        public AssetBundleLoadingButtonController(AssetBundleLoadingButtonView view)
+        private void Awake()
         {
-            _view = view;
-            _view.ButtonToChange.onClick.AddListener(StartBackgroundChange);
-            _view.StartCoroutine(LoadAssetBundle());
+            _buttonToChange = _buttonToChange != null ? _buttonToChange : GetComponent<Button>();
+        }
+
+        private void Start()
+        {
+            
         }
 
         private void StartBackgroundChange()
@@ -25,7 +30,7 @@ namespace Homework9
 
         private IEnumerator LoadAssetBundle()
         {
-            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(_view.AssetBundleUrl);
+            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(_assetBundleUrl);
 
             yield return request.SendWebRequest();
 
@@ -51,12 +56,12 @@ namespace Homework9
 
         private void ChangeButtonBackground()
         {
-            _view.ButtonToChange.image.sprite = _assetBundle.LoadAsset<Sprite>("board");
+            _buttonToChange.image.sprite = _assetBundle.LoadAsset<Sprite>("board");
         }
 
         private void DeactivateButton()
         {
-            _view.ButtonToChange.interactable = false;
+            _buttonToChange.interactable = false;
         }
     }
 }
