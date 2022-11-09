@@ -8,6 +8,12 @@ namespace Tool.Bundles.Examples
 {
     internal class LoadWindowView : AssetBundleViewBase
     {
+        [Header("Background")]
+        [SerializeField] private Image _backgroundContainer;
+        [SerializeField] private AssetReference _backgroundSprite;
+        [SerializeField] private Button _addBackgroundButton;
+        [SerializeField] private Button _removeBackgroundButton;
+
         [Header("Asset Bundles")]
         [SerializeField] private Button _loadAssetsButton;
 
@@ -18,18 +24,24 @@ namespace Tool.Bundles.Examples
 
         private readonly List<AsyncOperationHandle<GameObject>> _addressablePrefabs =
             new List<AsyncOperationHandle<GameObject>>();
+        private AsyncOperationHandle<Sprite> _background;
 
 
         private void Start()
         {
             _loadAssetsButton.onClick.AddListener(LoadAssets);
             _spawnAssetButton.onClick.AddListener(SpawnPrefab);
+            _addBackgroundButton.onClick.AddListener(AddBackground);
+            _removeBackgroundButton.onClick.AddListener(RemoveBackground);
         }
 
         private void OnDestroy()
         {
             _loadAssetsButton.onClick.RemoveAllListeners();
             _spawnAssetButton.onClick.RemoveAllListeners();
+            _addBackgroundButton.onClick.RemoveAllListeners();
+            _removeBackgroundButton.onClick.RemoveAllListeners();
+            if (_background.Result != null) Addressables.Release(_background);
 
             DespawnPrefabs();
         }
@@ -55,6 +67,24 @@ namespace Tool.Bundles.Examples
                 Addressables.ReleaseInstance(addressablePrefab);
 
             _addressablePrefabs.Clear();
+        }
+
+        private async void AddBackground()
+        {
+            _background = Addressables.LoadAssetAsync<Sprite>(_backgroundSprite);
+            await _background.Task;
+
+            _backgroundContainer.sprite = _background.Result;
+            _addBackgroundButton.interactable = false;
+            _removeBackgroundButton.interactable = true;
+        }
+
+        private void RemoveBackground()
+        {
+            _backgroundContainer.sprite = null;
+            Addressables.Release(_background);
+            _addBackgroundButton.interactable = true;
+            _removeBackgroundButton.interactable = false;
         }
     }
 }
