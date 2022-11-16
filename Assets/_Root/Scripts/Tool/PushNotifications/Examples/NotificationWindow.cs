@@ -22,15 +22,27 @@ namespace Tool.Notifications.Examples
             _scheduler = schedulerFactory.Create();
         }
 
-        private void OnEnable() =>
-            _buttonNotification.onClick.AddListener(CreateNotification);
+        private void OnEnable()
+        {
+            _buttonNotification.onClick.AddListener(CreateNotification); 
 
-        private void OnDisable() =>
+            foreach (NotificationData notificationData in _settings.Notifications)
+                if (notificationData.RepeatType != NotificationRepeat.OnButtonClick || notificationData.RepeatType != NotificationRepeat.OnGameExit)
+                    _scheduler.ScheduleNotification(notificationData);
+        }
+
+        private void OnDisable()
+        {
             _buttonNotification.onClick.RemoveAllListeners();
+            foreach (NotificationData notificationData in _settings.Notifications)
+                if (notificationData.RepeatType == NotificationRepeat.OnGameExit)
+                    _scheduler.ScheduleNotification(notificationData);
+        }
 
         private void CreateNotification()
         {
             foreach (NotificationData notificationData in _settings.Notifications)
+                if (notificationData.RepeatType == NotificationRepeat.OnButtonClick)
                 _scheduler.ScheduleNotification(notificationData);
         }
     }

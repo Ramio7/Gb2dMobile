@@ -3,6 +3,9 @@ using Tool.PushNotifications.Settings;
 
 #if UNITY_ANDROID
 using Unity.Notifications.Android;
+using Unity.VisualScripting;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 #endif
 
 namespace Tool.PushNotifications
@@ -49,6 +52,27 @@ namespace Tool.PushNotifications
                     notificationData.Text,
                     notificationData.FireTime,
                     notificationData.RepeatInterval
+                ),
+
+                NotificationRepeat.OnGameStart => new AndroidNotification
+                (
+                    notificationData.Title,
+                    notificationData.Text,
+                    DateTime.UtcNow
+                ),
+
+                NotificationRepeat.OnGameExit => new AndroidNotification
+                (
+                    notificationData.Title,
+                    notificationData.Text,
+                    DateTime.UtcNow
+                ),
+
+                NotificationRepeat.OnButtonClick => new AndroidNotification
+                (
+                    notificationData.Title,
+                    notificationData.Text,
+                    DateTime.UtcNow
                 ),
 
                 _ => throw new ArgumentOutOfRangeException(nameof(notificationData.RepeatType))

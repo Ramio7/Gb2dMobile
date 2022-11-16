@@ -19,8 +19,37 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 22199394304
-    m_Localized: Translate this text
+    m_Localized: translate_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151882510422536192
+    m_Localized: Start Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883008529690624
+    m_Localized: Daily Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883260624138240
+    m_Localized: Shed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883454770081792
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883745418571776
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883995067740160
+    m_Localized: Buy Product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151884307790852096
+    m_Localized: Rewarded Ads
     m_Metadata:
       m_Items: []
   references:
-    version: 1
+    version: 2
+    RefIds: []

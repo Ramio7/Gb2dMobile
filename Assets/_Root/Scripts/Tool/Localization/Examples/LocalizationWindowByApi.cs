@@ -15,7 +15,6 @@ namespace Tool.Localization.Examples
         [SerializeField] private string _tableName;
         [SerializeField] private string _localizationTag;
 
-
         protected override void OnStarted()
         {
             LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;

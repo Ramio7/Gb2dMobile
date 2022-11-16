@@ -19,8 +19,37 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 22199394304
-    m_Localized: Traduire ce texte
+    m_Localized: traduire le texte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151882510422536192
+    m_Localized: Commencer le Jeu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883008529690624
+    m_Localized: "R\xE9compense Quotidienne"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883260624138240
+    m_Localized: Hangar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883454770081792
+    m_Localized: "Param\xE8tre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883745418571776
+    m_Localized: Quitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151883995067740160
+    m_Localized: Acheter Un Produit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151884307790852096
+    m_Localized: "Annonces R\xE9compens\xE9es"
     m_Metadata:
       m_Items: []
   references:
-    version: 1
+    version: 2
+    RefIds: []

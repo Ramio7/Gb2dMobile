@@ -17,6 +17,7 @@ namespace Tool.PushNotifications.Settings
         [field: SerializeField] public string Id { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
+
         [SerializeField] private Importance _importance;
 
 #if UNITY_ANDROID
@@ -53,7 +54,10 @@ namespace Tool.PushNotifications.Settings
     internal enum NotificationRepeat
     {
         Once,
-        Repeatable
+        Repeatable,
+        OnGameStart,
+        OnGameExit,
+        OnButtonClick
     }
 
     [Serializable]

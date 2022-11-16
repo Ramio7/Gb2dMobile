@@ -24,6 +24,30 @@ MonoBehaviour:
     <RepeatType>k__BackingField: 1
     <FireTime>k__BackingField:
       <Year>k__BackingField: 2022
+      <Month>k__BackingField: 11
+      <Day>k__BackingField: 16
+      <Hour>k__BackingField: 22
+      <Minute>k__BackingField: 39
+    <RepeatInterval>k__BackingField:
+      <Seconds>k__BackingField: 30
+  - <Id>k__BackingField: notification_byebye
+    <Title>k__BackingField: Goodbye
+    <Text>k__BackingField: Se ya!
+    <RepeatType>k__BackingField: 2
+    <FireTime>k__BackingField:
+      <Year>k__BackingField: 2022
+      <Month>k__BackingField: 8
+      <Day>k__BackingField: 18
+      <Hour>k__BackingField: 23
+      <Minute>k__BackingField: 30
+    <RepeatInterval>k__BackingField:
+      <Seconds>k__BackingField: 30
+  - <Id>k__BackingField: notification_byebye
+    <Title>k__BackingField: Button click notify
+    <Text>k__BackingField: You pushed it!? You really did it!?
+    <RepeatType>k__BackingField: 4
+    <FireTime>k__BackingField:
+      <Year>k__BackingField: 2022
       <Month>k__BackingField: 8
       <Day>k__BackingField: 18
       <Hour>k__BackingField: 23

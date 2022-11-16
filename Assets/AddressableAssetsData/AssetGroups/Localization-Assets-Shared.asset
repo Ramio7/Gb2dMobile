@@ -21,6 +21,21 @@ MonoBehaviour:
     m_Address: Assets/_Root/Settings/Localization/Main Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: f783e259cc1a69848933f83e7d45e611
+    m_Address: Assets/_Root/Settings/Localization/Tutorial Asset Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 8f586378b4e144a9851e7b34d9b748ee
+    m_Address: LiberationSans SDF
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Locale-fr
+    - Locale-ru-RU
+  - m_GUID: ac724d72bc3d24b4ea90a2dff4e88bf9
+    m_Address: Assets/_Root/Settings/Localization/Dinamic string table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: f2fd3f2671b0342c085196b05069e11a, type: 2}
   m_SchemaSet:
